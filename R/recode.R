@@ -16,8 +16,8 @@
 #'
 #' @seealso \code{\link{match}}
 #'
+#' @export
 #' @example man-roxygen/recode.R
-#' @export recode
 
 
 recode <- function(x, fromto, ...)
@@ -31,6 +31,7 @@ recode <- function(x, fromto, ...)
 
 #' @method recode default
 #'
+#' @details
 #' If \code{fromto} is a vector it should have an even number of elements. It is
 #' interpreted such that values \code{x = fromto[i]} is recoded into a value
 #' \code{fromto[i+1]}, \code{x = fromto[i+2]} into \code{fromto[i+3]} and so on.
@@ -71,6 +72,7 @@ recode.default <- function(x, fromto, ...)
 
 #' @method recode data.frame
 #'
+#' @details
 #' If \code{fromto} is a data frame, then it is expected to have two columns.
 #' The mode of the result is determined by the mode of the second column of
 #' \code{fromto}. For each 'i', values of \code{x} equal to \code{fromto[i,1]}
@@ -103,6 +105,7 @@ recode.data.frame <- function(x, fromto, ...)
 
 #' @method recode matrix
 #'
+#' @details
 #' If \code{fromto} is a matrix, it is converted to a data frame and an
 #' appropriate method is used.
 #'
