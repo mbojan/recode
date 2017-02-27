@@ -60,6 +60,11 @@ test_that("RS: with numeric vectors works", {
     recode(1:5, 1:2, 1, 3:5, 2),
     c(1,1, 2, 2, 2)
   )
+
+  expect_equal( # 1:5 is integer!
+    recode(1:5, 1, 10, 5, 10),
+    c(10, 2, 3, 4, 50)
+  )
 } )
 
 test_that("RS: recoding to character works",{
