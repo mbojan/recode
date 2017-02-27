@@ -4,7 +4,7 @@
 #' new values according to the specified rules.
 #'
 #' This is a generic function that dispatches methods based on the class
-#' of the \code{fromto} argument, which contains the recoding rules.
+#' of the \code{fromto} argument, which expects the recoding rule(s).
 #'
 #' @param x atomic vector, variable to be recoded
 #' @param fromto two-column matrix or data frame, or a list
