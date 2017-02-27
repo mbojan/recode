@@ -5,8 +5,43 @@
 [![rstudio mirror downloads](http://cranlogs.r-pkg.org/badges/recode?color=2ED968)](http://cranlogs.r-pkg.org/)
 [![cran version](http://www.r-pkg.org/badges/version/recode)](https://cran.r-project.org/package=recode)
 
-
 Another function to recode variables.
+
+
+
+
+# Example
+
+```{r setup}
+library(tidyverse)
+requireNamespace("knitr")
+```
+
+
+Some example data
+
+```{r example_data}
+d <- data.frame(
+  num = 1:5,
+  ch = letters[1:5],
+  fac = factor(LETTERS[1:5]),
+  stringsAsFactors = FALSE
+)
+knitr::kable(d)
+```
+
+## Recoding with a vector
+
+The recoding vector `fromto` is expected to have even number of elements. The value `fromto[i]` is replaced with `fromto[i+1]`:
+
+```{r}
+d %>%
+  mutate(
+    new_num = recode::recode(d$num, 1, 10, 5, 50)
+  )
+```
+
+
 
 
 
