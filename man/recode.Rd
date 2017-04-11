@@ -2,8 +2,8 @@
 % Please edit documentation in R/recode.R
 \name{recode}
 \alias{recode}
-\alias{recode.data.frame}
 \alias{recode.default}
+\alias{recode.data.frame}
 \alias{recode.matrix}
 \title{Recoding variables (vectors)}
 \usage{
@@ -33,7 +33,7 @@ new values according to the specified rules.
 }
 \details{
 This is a generic function that dispatches methods based on the class
-of the \code{fromto} argument, which contains the recoding rules.
+of the \code{fromto} argument, which expects the recoding rule(s).
 
 If \code{fromto} is a vector it should have an even number of elements. It is
 interpreted such that values \code{x = fromto[i]} is recoded into a value
@@ -53,21 +53,28 @@ x <- c(1,2,3,4,3,2,1)
 
 # Recoding with rules as a matrix
 rmat <- matrix( c(1, 10, 4, 40), 2, 2, byrow=TRUE)
-recode(x, rmat)
+data.frame(
+  old=x,
+  new=recode(x, rmat)
+)
 
 # Recoding with a data frame
 d <- data.frame(from = c(2, 3),
                 to = c("two", "three") )
-recode(x, d)
+data.frame(
+  old = x,
+  new = recode(x, d)
+)
+
 
 
 # Recoding with rule sets
-r <- recode(x, c(1,2), "one or two",
-       c(3,4), "three or four",
-       5, "five")
-data.frame(x, r)
+r <- recode(x,
+            c(1,2), "one or two",
+            c(3,4), "three or four",
+            5, "five")
+data.frame(old=x, new=r)
 }
 \seealso{
 \code{\link{match}}
 }
-

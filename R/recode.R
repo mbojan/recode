@@ -53,9 +53,9 @@ recode.default <- function(x, fromto, ...)
   to <- rlist[ seq(2, length(rlist), by=2) ]
   stopifnot(length(from) == length(to))
   # 'from' of the same class as 'x'
-  stopifnot( all(sapply(from, class) == class(x)) )
+  stopifnot( all(sapply(from, data.class) == data.class(x)) )
   # 'to' are of the same class
-  stopifnot( length(unique(sapply(to, class))) == 1 )
+  stopifnot( length(unique(sapply(to, data.class))) == 1 )
   lens <- sapply(from, length)
   d <- data.frame( from=unlist(from),
                    to=rep(unlist(to), lens),
