@@ -62,7 +62,7 @@ test_that("RS: with numeric vectors works", {
   )
 
   expect_equal( # 1:5 is integer!
-    recode(1:5, 1, 10, 5, 10),
+    recode(1:5, 1, 10, 5, 50),
     c(10, 2, 3, 4, 50)
   )
 } )
