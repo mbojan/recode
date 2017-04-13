@@ -5,6 +5,7 @@
 \alias{recode.default}
 \alias{recode.data.frame}
 \alias{recode.matrix}
+\alias{recode.formula}
 \title{Recoding variables (vectors)}
 \usage{
 recode(x, fromto, ...)
@@ -14,6 +15,8 @@ recode(x, fromto, ...)
 \method{recode}{data.frame}(x, fromto, ...)
 
 \method{recode}{matrix}(x, fromto, ...)
+
+\method{recode}{formula}(x, fromto, ..., other = NULL)
 }
 \arguments{
 \item{x}{atomic vector, variable to be recoded}
@@ -22,6 +25,8 @@ recode(x, fromto, ...)
 
 \item{...}{Only used in the default method and expects further elements of
 the recoding rule set}
+
+\item{other}{value insert for other unrecoded values}
 }
 \value{
 Vector of the same mode as second column of \code{fromto} and length

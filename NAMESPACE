@@ -2,5 +2,6 @@
 
 S3method(recode,data.frame)
 S3method(recode,default)
+S3method(recode,formula)
 S3method(recode,matrix)
 export(recode)
