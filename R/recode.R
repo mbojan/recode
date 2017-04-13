@@ -120,3 +120,54 @@ recode.matrix <- function(x, fromto, ...)
 
 
 
+
+
+
+
+
+
+#' @rdname recode
+#' @method recode formula
+#'
+#' @param other value insert for other unrecoded values
+#'
+#' @export
+recode.formula <- function(x, fromto, ..., other=NULL) {
+  rules <- c(list(fromto), list(...))
+  # TODO check if rules are valid
+  # TODO intervals cant be used with non-numeric 'x'
+
+  # Intervals
+  "%[]%" <- function(lhs, rhs) {
+    substitute(
+      x >= lhs & x <= rhs,
+      list(rhs=rhs, lhs=lhs)
+    )
+  }
+
+
+  if(is.null(other)) {
+    rval <- x
+  } else {
+    rval <- rep(other, length(x))
+  }
+  for(r in rules) {
+    i <- switch(
+      data.class(r[[2]]),
+      call = eval(eval(r[[2]])),
+      x %in% r[[2]]
+    )
+    rval[i] <- r[[3]]
+  }
+  rval
+}
+
+
+if(FALSE) {
+  m <- 2 %[]% 3 ~ 300
+  m[[2]]
+
+  f(1:10,   2 %[]% 3 ~ 300, 5 ~ 500, 7:8 ~ 80)
+
+  f(letters[1:10], c("a", "b") ~ 1)
+}
