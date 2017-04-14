@@ -12,6 +12,13 @@ test_that("using scalar `from` works", {
   )
 })
 
+test_that("using vector `from` works", {
+  expect_identical(
+    recode(1:6, 2:3 ~ 23, 5:6 ~ 56),
+    c(1, 23, 23, 4, 56, 56)
+  )
+})
+
 
 test_that("using [] interval works", {
   expect_identical(
