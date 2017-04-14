@@ -133,6 +133,10 @@ recode.matrix <- function(x, fromto, ...)
 #'
 #' @export
 recode.formula <- function(x, fromto, ..., other=NULL) {
+  if(!is.null(other)) {
+    stopifnot(is.atomic(other))
+    stopifnot(length(other) == 1)
+  }
   rules <- c(list(fromto), list(...))
   # TODO check if rules are valid
   # TODO intervals cant be used with non-numeric 'x'
@@ -141,6 +145,24 @@ recode.formula <- function(x, fromto, ..., other=NULL) {
   "%[]%" <- function(lhs, rhs) {
     substitute(
       x >= lhs & x <= rhs,
+      list(rhs=rhs, lhs=lhs)
+    )
+  }
+  "%(]%" <- function(lhs, rhs) {
+    substitute(
+      x > lhs & x <= rhs,
+      list(rhs=rhs, lhs=lhs)
+    )
+  }
+  "%[)%" <- function(lhs, rhs) {
+    substitute(
+      x >= lhs & x < rhs,
+      list(rhs=rhs, lhs=lhs)
+    )
+  }
+  "%()%" <- function(lhs, rhs) {
+    substitute(
+      x > lhs & x < rhs,
       list(rhs=rhs, lhs=lhs)
     )
   }
