@@ -138,8 +138,11 @@ recode.formula <- function(x, fromto, ..., other=NULL) {
     stopifnot(length(other) == 1)
   }
   rules <- c(list(fromto), list(...))
-  # TODO check if rules are valid
-  # TODO intervals cant be used with non-numeric 'x'
+  # Check if rules are valid
+  chk <- lapply(rules, valid_recode_formula, x=x)
+  ok <- vapply(chk, isTRUE, logical(1))
+  if(any(!ok))
+    stop("recode formula errors:\n", paste( unlist(chk[!ok]), collapse="\n"))
 
   # Intervals
   "%[]%" <- function(lhs, rhs) {
@@ -185,11 +188,49 @@ recode.formula <- function(x, fromto, ..., other=NULL) {
 }
 
 
+
+
+
+
+
+
+is_formula <- function(x) inherits(x, "formula")
+
+# check if recode formula is valid
+# @param cls character class of vector to be recoded
+# @param f formula
+# returns TRUE or vector of character error messages
+valid_recode_formula <- function(f, x) {
+  cls <- data.class(x)
+  arg <- deparse(f)
+  msg <- function(m, a=arg)
+    paste0("in ", sQuote(a), ": ", m)
+  rval <- NULL
+  # `f` shoud be a formula
+  if(!is_formula(f))
+    rval <- c(rval, msg("it is not a formula"))
+  lhs <- f[[2]]
+  rhs <- eval(f[[3]])
+  # `rhs` should be atomic of length 1
+  if(!is.atomic(rhs))
+    rval <- c(rval, msg("rhs is not atomic"))
+  if(length(rhs) != 1)
+    rval <- c(rval, msg("rhs is not of length 1"))
+  # TODO `lhs` should be a call or vector
+  # TODO if `lhs` is a vector it should be of the same class as `x`
+  # TODO lhs can be a call only if cls="numeric"
+  # Finalize
+  if(is.null(rval)) {
+    return(TRUE)
+  } else {
+    return(rval)
+  }
+}
+
+
 if(FALSE) {
   m <- 2 %[]% 3 ~ 300
   m[[2]]
-
   f(1:10,   2 %[]% 3 ~ 300, 5 ~ 500, 7:8 ~ 80)
-
   f(letters[1:10], c("a", "b") ~ 1)
 }
