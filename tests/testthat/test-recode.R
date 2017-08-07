@@ -15,11 +15,6 @@ for (i in seq(along=non_atomic_objects)) {
 
 
 
-
-
-
-
-
 context("Recoding numeric vectors")
 
 test_that("M: recoding with numeric 2x2 rmatrix", {
@@ -44,6 +39,7 @@ test_that("DF: recoding numeric to character works", {
   x <- 1:5
   d <- data.frame(from=2:3, to=c("a", "b"), stringsAsFactors=FALSE)
   r <- recode(x, d)
+  expect_type(r, "character")
   expect_equal(r, c("1", "a", "b", "4", "5") )
 } )
 
@@ -54,6 +50,9 @@ test_that("DF: numeric to character with a factor works", {
   r <- recode(x, d)
   expect_equal(r, c("1", "a", "b", "4", "5") )
 } )
+
+
+
 
 test_that("RS: with numeric vectors works", {
   expect_equal(
