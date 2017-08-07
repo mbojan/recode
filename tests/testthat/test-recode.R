@@ -72,3 +72,82 @@ test_that("RS: recoding to character works",{
     rep(c("a", "b"), c(2, 3))
   )
 } )
+
+
+
+
+
+
+context("Recoding character vectors")
+
+# Using matrices
+
+test_that("M: recoding with character matrix", {
+  x <- letters[1:5]
+  m <- matrix(c("a", "b", "d", "A", "B", "D"), ncol=2)
+  expect_silent(
+    recode(x, m)
+  )
+  expect_identical(
+    recode(x, m),
+    c("A", "B", "c", "D", "e")
+  )
+})
+
+
+test_that("DF: recoding character to character with character column", {
+  x <- letters[1:5]
+  d <- data.frame(
+    from = c("a", "c", "e"),
+    to = c("A", "C", "E"),
+    stringsAsFactors = FALSE
+  )
+  expect_silent(
+    recode(x, d)
+  )
+  expect_identical(
+    recode(x, d),
+    c("A", "b", "C", "d", "E")
+  )
+})
+
+
+test_that("DF: recoding character to character with factor column", {
+  x <- letters[1:5]
+  d <- data.frame(
+    from = c("a", "c", "e"),
+    to = factor(c("A", "C", "E")),
+    stringsAsFactors = FALSE
+  )
+  expect_silent(
+    recode(x, d)
+  )
+  expect_identical(
+    recode(x, d),
+    c("A", "b", "C", "d", "E")
+  )
+})
+
+
+test_that("DF: recoding character to numeric gives character", {
+  x <- letters[1:5]
+  d <- data.frame(
+    from = c("a", "c", "e"),
+    to = 1:3,
+    stringsAsFactors = FALSE
+  )
+  expect_silent(
+    recode(x, d)
+  )
+  expect_type( recode(x, d), "character"  )
+})
+
+
+
+test_that("RS: recoding character to character", {
+  x <- letters[1:5]
+  expect_identical(
+    recode(x, "a", "A", "c", "C", "e", "E"),
+    c("A", "b", "C", "d", "E")
+  )
+})
