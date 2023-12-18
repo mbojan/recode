@@ -1,19 +1,21 @@
 # Recoding variables
 
-[![Build Status](https://travis-ci.org/mbojan/recode.png?branch=master)](https://travis-ci.org/mbojan/recode)
-[![Build Status](https://ci.appveyor.com/api/projects/status/fpq4982h6y2fwp39?svg=true)](https://ci.appveyor.com/project/mbojan/alluvial)
+<!-- badges: start -->
+[![R-CMD-check](https://github.com/mbojan/recode/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/mbojan/recode/actions/workflows/R-CMD-check.yaml)
 [![rstudio mirror downloads](http://cranlogs.r-pkg.org/badges/recode?color=2ED968)](http://cranlogs.r-pkg.org/)
 [![cran version](http://www.r-pkg.org/badges/version/recode)](https://cran.r-project.org/package=recode)
-
+<!-- badges: end -->
 
 Another function to recode variables.
 
 
 
 
-
 ## Installation
 
+From GitHub:
+
 ```r
-devtools::install_github("mbojan/recode")
+remotes::install_github("mbojan/recode")
 ```
+
